@@ -1,15 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import Table from './Table';
 
-
-library.add(faCheck);
+const tableHeaders = ['Legal Entity', 'Street', 'City', 'Country'];
 
 const mapStateToProps = (state) => ({
-  legalEntity: Object.values(state.legalEntity),
+  legalEntity: Object.values(state.legalEntity).map(e => ({
+    id: e.legalEntityID,
+    name: e.legalEntityName,
+    address: `${e.address2} ${e.address1}`,
+    city: e.city,
+    country: e.country,
+  })),
   legalEntityUI: state.legalEntityUI,
 });
 
@@ -32,7 +35,6 @@ class LegalEntity extends React.Component {
         onClick={this.selectEntity(e.legalEntityID)}
         className={isSelected(e.legalEntityID) ? 'table-success' : ''}
       >
-        <td>{isSelected(e.legalEntityID) ? <FontAwesomeIcon icon="check" /> : null}</td>
         <td>{e.legalEntityName}</td>
         <td>{e.address2} {e.address1}</td>
         <td>{e.city}</td>
@@ -42,27 +44,20 @@ class LegalEntity extends React.Component {
   }
 
   render() {
-    const { showPharmacy, legalEntityUI } = this.props;
+    const { legalEntity, showPharmacy, legalEntityUI } = this.props;
+    const tableProps = {
+      selectedIds: [legalEntityUI.selectedId],
+      selectItem: this.selectEntity,
+      items: legalEntity,
+      tableHeaders,
+    };
     if (legalEntityUI.isShow === false) {
       return null;
     }
     return (
       <div>
         <h2>1: Select Legal Entity</h2>
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th><div style={ { opacity: '0' } }><FontAwesomeIcon icon="check" /></div></th>
-              <th scope="col">Legal Entity</th>
-              <th scope="col">Street</th>
-              <th scope="col">City</th>
-              <th scope="col">Country</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.renderItems()}
-          </tbody>
-        </table>
+        <Table {...tableProps} />
         <button onClick={showPharmacy} className='btn btn-primary'>Select Pharamcies</button>
       </div>
     );

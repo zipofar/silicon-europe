@@ -7,7 +7,7 @@ export const selectLegalEntity = createAction('LEGALENTITY_SELECT');
 export const fetchLegalEntity = () => async (dispatch) => {
   try {
     const res = await axios.get('http://localhost:9000/legalentity');
-    console.log(res.data)
+    console.log('action fetchLegalEntity', res.data)
     dispatch(fetchLegalEntitySuccess({ legalEntity: res.data }));
   } catch (e) {
   
