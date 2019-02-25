@@ -10,6 +10,12 @@ const legalEntity = handleActions({
   },
 }, {});
 
+const pharmacies = handleActions({
+  [actions.fetchPharmacy](state, { payload: { pharmacies } }) {
+    return _.keyBy(pharmacies, 'pharmaID'); 
+  },
+}, {});
+
 const legalEntityUI = handleActions({
   [actions.selectLegalEntity](state, { payload: { selectedId } }) {
     return { ...state, selectedId };
@@ -22,8 +28,23 @@ const legalEntityUI = handleActions({
   },
 }, { isShow: true });
 
+const pharmaciesUI = handleActions({
+  [actions.selectPharmacy](state, { payload: { selectedId } }) {
+    const newSelectedIds = _.concat(state.selectedIds, selectedId);
+    return { ...state, selectedIds: newSelectedIds };
+  },
+  [actions.showPharmacy](state) {
+    return { ...state, isShow: true };
+  },
+  [actions.showLegalEntity](state) {
+    return { ...state, isShow: false };
+  },
+}, { isShow: false, selectedIds: [] });
+
 export default combineReducers({
   legalEntity,
   legalEntityUI,
+  pharmacies,
+  pharmaciesUI,
   form: formReducer,
 });

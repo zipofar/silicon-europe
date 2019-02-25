@@ -17,13 +17,13 @@ const mapStateToProps = (state) => ({
 });
 
 const actionCreators = {
-  selectLegalEntity: actions.selectLegalEntity,
+  selectPharmacy: actions.selectPharmacy,
   showPharmacy: actions.showPharmacy,
 };
 
-class LegalEntity extends React.Component {
-  selectEntity = selectedId => (e) => {
-    this.props.selectLegalEntity({ selectedId });
+class Pharmacy extends React.Component {
+  selectRow = selectedId => (e) => {
+    this.props.selectPharmacy({ selectedId });
   }
 
   render() {

@@ -1,6 +1,6 @@
 lint:
 	npx eslint .
-start-dev:
+start:
 	yarn start 
-start-serv:
+starts:
 	node server.js
