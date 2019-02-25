@@ -11,7 +11,7 @@ const legalEntity = handleActions({
 }, {});
 
 const pharmacies = handleActions({
-  [actions.fetchPharmacy](state, { payload: { pharmacies } }) {
+  [actions.fetchPharmacySuccess](state, { payload: { pharmacies } }) {
     return _.keyBy(pharmacies, 'pharmaID'); 
   },
 }, {});
@@ -32,6 +32,10 @@ const pharmaciesUI = handleActions({
   [actions.selectPharmacy](state, { payload: { selectedId } }) {
     const newSelectedIds = _.concat(state.selectedIds, selectedId);
     return { ...state, selectedIds: newSelectedIds };
+  },
+  [actions.unSelectPharmacy](state, { payload: { selectedId } }) {
+    const filteredIds = _.without(state.selectedIds, selectedId);
+    return { ...state, selectedIds: filteredIds };
   },
   [actions.showPharmacy](state) {
     return { ...state, isShow: true };

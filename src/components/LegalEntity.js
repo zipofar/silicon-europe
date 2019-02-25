@@ -19,11 +19,18 @@ const mapStateToProps = (state) => ({
 const actionCreators = {
   selectLegalEntity: actions.selectLegalEntity,
   showPharmacy: actions.showPharmacy,
+  fetchPharmacy: actions.fetchPharmacy,
 };
 
 class LegalEntity extends React.Component {
   selectEntity = selectedId => (e) => {
     this.props.selectLegalEntity({ selectedId });
+  }
+
+  loadPharamcies = () => {
+    const { legalEntityUI, showPharmacy, fetchPharmacy } = this.props;
+    fetchPharmacy(legalEntityUI.selectedId);
+    showPharmacy();
   }
 
   render() {
@@ -41,7 +48,7 @@ class LegalEntity extends React.Component {
       <div>
         <h2>1: Select Legal Entity</h2>
         <Table {...tableProps} />
-        <button onClick={showPharmacy} className='btn btn-primary'>Select Pharamcies</button>
+        <button onClick={this.loadPharamcies} className='btn btn-primary'>Select Pharamcies</button>
       </div>
     );
   }

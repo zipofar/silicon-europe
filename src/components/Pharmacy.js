@@ -1,50 +1,61 @@
 import React from 'react';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import Table from './Table';
 
-const tableHeaders = ['Legal Entity', 'Street', 'City', 'Country'];
+const tableHeaders = ['Pharmacy', 'Street', 'City', 'Country'];
 
 const mapStateToProps = (state) => ({
-  legalEntity: Object.values(state.legalEntity).map(e => ({
-    id: e.legalEntityID,
-    name: e.legalEntityName,
-    address: `${e.address2} ${e.address1}`,
+  pharmacies: Object.values(state.pharmacies).map(e => ({
+    id: e.pharmaID,
+    name: e.pharmaName,
+    address: `${e.address_2} ${e.address_1}`,
     city: e.city,
     country: e.country,
   })),
-  legalEntityUI: state.legalEntityUI,
+  pharmaciesUI: state.pharmaciesUI,
 });
 
 const actionCreators = {
   selectPharmacy: actions.selectPharmacy,
-  showPharmacy: actions.showPharmacy,
+  showLegalEntity: actions.showLegalEntity,
+  unSelectPharmacy: actions.unSelectPharmacy,
 };
 
 class Pharmacy extends React.Component {
   selectRow = selectedId => (e) => {
-    this.props.selectPharmacy({ selectedId });
+    const { unSelectPharmacy, selectPharmacy, pharmaciesUI } = this.props;
+    console.log(selectedId)
+    console.log(pharmaciesUI.selectedIds)
+    console.log(pharmaciesUI.selectedIds.includes(selectedId))
+    if (pharmaciesUI.selectedIds.includes(selectedId)) {
+      unSelectPharmacy({ selectedId }); 
+    } else {
+      selectPharmacy({ selectedId });
+    }
   }
 
   render() {
-    const { legalEntity, showPharmacy, legalEntityUI } = this.props;
+    const { pharmacies, showLegalEntity, pharmaciesUI } = this.props;
     const tableProps = {
-      selectedIds: [legalEntityUI.selectedId],
-      selectItem: this.selectEntity,
-      items: legalEntity,
+      selectedIds: pharmaciesUI.selectedIds,
+      selectItem: this.selectRow,
+      items: pharmacies,
       tableHeaders,
     };
-    if (legalEntityUI.isShow === false) {
+    if (pharmaciesUI.isShow === false) {
       return null;
     }
     return (
       <div>
-        <h2>1: Select Legal Entity</h2>
+        <h2>1: Select Pharmacies</h2>
         <Table {...tableProps} />
-        <button onClick={showPharmacy} className='btn btn-primary'>Select Pharamcies</button>
+        <button onClick={showLegalEntity} className='btn btn-primary'>Back</button>
+        <button onClick={showLegalEntity} className='btn btn-primary'>Enter Contract Terms</button>
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, actionCreators)(LegalEntity);
+export default connect(mapStateToProps, actionCreators)(Pharmacy);
