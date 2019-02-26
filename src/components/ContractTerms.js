@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { Field, reduxForm } from 'redux-form';
-
+import DatePicker from './DatePicker';
 
 const mapStateToProps = (state) => ({
   contractTermsUI: state.contractTermsUI,
@@ -18,8 +18,8 @@ class ContractTerms extends React.Component {
   renderForm = () => (
     <form>
       <div className="form-group row">
-        <label forHtml="contractType" className="col-sm-2 col-form-label">Contract Type</label>
-        <div className="col-md-2 col-sm-10">
+        <label forhtml="contractType" className="col-sm-2 col-form-label">Contract Type</label>
+        <div className="col-md-3 col-sm-10">
           <Field name="contractType" className="form-control" component="select">
             <option value="Charter">Charter</option>
             <option value="Order">Order</option>
@@ -29,9 +29,27 @@ class ContractTerms extends React.Component {
         </div>
       </div>
       <div className="form-group row">
-        <label forHtml="selectType" className="col-sm-2 col-form-label">Service Agreement #</label>
+        <label forhtml="serviceAgreement" className="col-sm-2 col-form-label">Service Agreement #</label>
         <div className="col-md-5 col-sm-10">
-          <Field name="serviceAgreement" component="input" type="text" className="form-control" />
+          <Field name="serviceAgreement" component="input" type="text" className="form-control" id="serviceAgreement" />
+        </div>
+      </div>
+      <div className="form-group row">
+        <label forhtml="contractStartDate" className="col-sm-2 col-form-label">Contract Start Date</label>
+        <div className="col-md-5 col-sm-10">
+          <Field name="contractStartDate" component={DatePicker} type="text" />
+        </div>
+      </div>
+      <div className="form-group row">
+        <label forhtml="location" className="col-sm-2 col-form-label">Location</label>
+        <div className="col-md-10 col-sm-10">
+          <Field name="location" component="input" type="text" className="form-control" id="location" />
+        </div>
+      </div>
+      <div className="form-group row">
+        <label forhtml="contractorName" className="col-sm-2 col-form-label">Contractor Name</label>
+        <div className="col-md-10 col-sm-10">
+          <Field name="contractorName" component="input" type="text" className="form-control" id="contractorName" />
         </div>
       </div>
     </form>
