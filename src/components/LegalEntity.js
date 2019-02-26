@@ -27,7 +27,7 @@ class LegalEntity extends React.Component {
     this.props.selectLegalEntity({ selectedId });
   }
 
-  loadPharamcies = () => {
+  loadPharmacies = () => {
     const { legalEntityUI, showPharmacy, fetchPharmacy } = this.props;
     fetchPharmacy(legalEntityUI.selectedId);
     showPharmacy();
@@ -48,7 +48,7 @@ class LegalEntity extends React.Component {
       <div>
         <h2>1: Select Legal Entity</h2>
         <Table {...tableProps} />
-        <button onClick={this.loadPharamcies} className='btn btn-primary'>Select Pharamcies</button>
+        <button onClick={this.loadPharmacies} className='btn btn-primary'>Select Pharmacies</button>
       </div>
     );
   }

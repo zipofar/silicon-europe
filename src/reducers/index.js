@@ -40,15 +40,28 @@ const pharmaciesUI = handleActions({
   [actions.showPharmacy](state) {
     return { ...state, isShow: true };
   },
+  [actions.showContractTerms](state) {
+    return { ...state, isShow: false };
+  },
   [actions.showLegalEntity](state) {
     return { ...state, isShow: false };
   },
 }, { isShow: false, selectedIds: [] });
+
+const contractTermsUI = handleActions({
+  [actions.showContractTerms](state) {
+    return { ...state, isShow: true };
+  },
+  [actions.showPharmacy](state) {
+    return { ...state, isShow: false };
+  },
+}, { isShow: true });
 
 export default combineReducers({
   legalEntity,
   legalEntityUI,
   pharmacies,
   pharmaciesUI,
+  contractTermsUI,
   form: formReducer,
 });
