@@ -2,12 +2,25 @@ import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import { Field, reduxForm } from 'redux-form';
-import DatePicker from './DatePicker';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
+import DatePickerReduxForm from './DatePicker/DatePickerReduxForm';
 
-const mapStateToProps = (state) => ({
-  contractTermsUI: state.contractTermsUI,
-});
+const mapStateToProps = (state) => {
+  const selector = formValueSelector('contractTerms');
+  const startDate = selector(state, 'contractStartDate');
+  const endDate = selector(state, 'contractEndDate');
+  const normalizeEndDate = startDate > endDate ? startDate : endDate;
+console.log(normalizeEndDate)
+  return ({
+    contractTermsUI: state.contractTermsUI,
+    startDate: selector(state, 'contractStartDate'),
+    endDate: normalizeEndDate,
+    initialValues: {
+      contractStartDate: new Date(Date.now()),
+      contractEndDate: new Date(Date.now()),
+    },
+  });
+};
 
 const actionCreators = {
   showPharmacy: actions.showPharmacy,
@@ -37,7 +50,13 @@ class ContractTerms extends React.Component {
       <div className="form-group row">
         <label forhtml="contractStartDate" className="col-sm-2 col-form-label">Contract Start Date</label>
         <div className="col-md-5 col-sm-10">
-          <Field name="contractStartDate" component={DatePicker} type="text" />
+          <Field name="contractStartDate" component={DatePickerReduxForm} type="text" />
+        </div>
+      </div>
+      <div className="form-group row">
+        <label forhtml="contractEndDate" className="col-sm-2 col-form-label">Contract End Date</label>
+        <div className="col-md-5 col-sm-10">
+          <Field name="contractEndDate" component={DatePickerReduxForm} type="text" value={this.props.endDate} />
         </div>
       </div>
       <div className="form-group row">
@@ -55,6 +74,7 @@ class ContractTerms extends React.Component {
     </form>
   );
   render() {
+    console.log(this.props)
     const { showResults, showPharmacies, contractTermsUI } = this.props;
     if (contractTermsUI.isShow === false) {
       return null;
@@ -69,6 +89,7 @@ class ContractTerms extends React.Component {
     );
   }
 }
-
-const connected = connect(mapStateToProps, actionCreators)(ContractTerms);
-export default reduxForm({ form: 'contractTerms' })(connected);
+const FormDecoratedComponent = reduxForm({ form: 'contractTerms' })(ContractTerms);
+export default connect(mapStateToProps, actionCreators)(FormDecoratedComponent);
+//const connected = connect(mapStateToProps, actionCreators)(ContractTerms);
+//export default reduxForm({ form: 'contractTerms' })(connected);
