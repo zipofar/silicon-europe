@@ -16,6 +16,12 @@ const pharmacies = handleActions({
   },
 }, {});
 
+const contractTerms = handleActions({
+  [actions.addContractTerms](state, { payload: { contractTerms } }) {
+    console.log('REDUCER', contractTerms)
+    return contractTerms;
+  }
+}, {});
 const legalEntityUI = handleActions({
   [actions.selectLegalEntity](state, { payload: { selectedId } }) {
     return { ...state, selectedId };
@@ -57,11 +63,22 @@ const contractTermsUI = handleActions({
   },
 }, { isShow: false });
 
+const resultsUI = handleActions({
+  [actions.showResults](state) {
+    return { ...state, isShow: true }
+  },
+  [actions.showContractTerms](state) {
+    return { ...state, isShow: false };
+  },
+}, { isShow: false });
+
 export default combineReducers({
   legalEntity,
   legalEntityUI,
   pharmacies,
+  contractTerms,
   pharmaciesUI,
   contractTermsUI,
+  resultsUI,
   form: formReducer,
 });

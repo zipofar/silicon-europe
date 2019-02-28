@@ -28,5 +28,6 @@ export const fetchPharmacy = id => async (dispatch) => {
   }
 };
 
+export const addContractTerms = createAction('CONTRACT-TERMS_ADD');
 export const showContractTerms = createAction('CONTRACT-TERMS_SHOW');
 export const showResults = createAction('RESULTS_SHOW');

@@ -2,8 +2,29 @@ import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import { Field, reduxForm, formValueSelector } from 'redux-form';
+import { Field, reduxForm, formValueSelector, submit } from 'redux-form';
 import DatePickerReduxForm from './DatePicker/DatePickerReduxForm';
+
+const contractType = ['Charter', 'Order', 'Proxy', 'Certificate'];
+
+const formDefinition = [
+  ['contractType', 'Contract Type'],
+  ['serviceAgreement', 'Service Agreement #'],
+  ['contractStartDate', 'Contract Start Date'],
+  ['contractEndDate', 'Contract End Date'],
+  ['location', 'Location'],
+  ['contractorName', 'Contractor Name'],
+];
+
+const handleSubmit = (values) => {
+  console.log('Submit', values)
+  connect()(
+    ({ dispatch }) => {
+      console.log(dispatch)
+      dispatch({action: 'CONTRACT-TERMS_ADD', payload: {contractTerms: values}});
+    }
+  );
+}
 
 const mapStateToProps = (state) => {
   const selector = formValueSelector('contractTerms');
@@ -15,8 +36,12 @@ const mapStateToProps = (state) => {
     startDate: selector(state, 'contractStartDate'),
     endDate: normalizeEndDate,
     initialValues: {
+      contractType: contractType[0],
+      serviceAgreement: '',
       contractStartDate: new Date(Date.now()),
       contractEndDate: new Date(Date.now()),
+      location: '',
+      contractorName: '',
     },
   });
 };
@@ -24,6 +49,8 @@ const mapStateToProps = (state) => {
 const actionCreators = {
   showPharmacy: actions.showPharmacy,
   showResults: actions.showResults,
+  addContractTerms: actions.addContractTerms,
+  sumbit: submit,
 };
 
 class ContractTerms extends React.Component {
@@ -33,10 +60,7 @@ class ContractTerms extends React.Component {
         <label forhtml="contractType" className="col-sm-2 col-form-label">Contract Type</label>
         <div className="col-md-3 col-sm-10">
           <Field name="contractType" className="form-control" component="select">
-            <option value="Charter">Charter</option>
-            <option value="Order">Order</option>
-            <option value="Proxy">Proxy</option>
-            <option value="Certificate">Certificate</option>
+            {contractType.map(e => (<option key={e} value={e}>{e}</option>))}
           </Field>
         </div>
       </div>
@@ -73,7 +97,7 @@ class ContractTerms extends React.Component {
     </form>
   );
   render() {
-    const { showResults, showPharmacy, contractTermsUI } = this.props;
+    const { showResults, showPharmacy, contractTermsUI, submit } = this.props;
     if (contractTermsUI.isShow === false) {
       return null;
     }
@@ -82,11 +106,11 @@ class ContractTerms extends React.Component {
         <h2>3: Enter Contract Terms</h2>
         {this.renderForm()}
         <button onClick={showPharmacy} className='btn btn-primary'>Back</button>
-        <button onClick={showResults} className='btn btn-primary'>View Results</button>
+        <button onClick={() => submit('contractTerms')} className='btn btn-primary'>View Results</button>
       </div>
     );
   }
 }
-const FormDecoratedComponent = reduxForm({ form: 'contractTerms' })(ContractTerms);
+const FormDecoratedComponent = reduxForm({ form: 'contractTerms', onSubmit: handleSubmit })(ContractTerms);
 export default connect(mapStateToProps, actionCreators)(FormDecoratedComponent);
 
