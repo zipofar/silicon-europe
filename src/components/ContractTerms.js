@@ -10,7 +10,6 @@ const mapStateToProps = (state) => {
   const startDate = selector(state, 'contractStartDate');
   const endDate = selector(state, 'contractEndDate');
   const normalizeEndDate = startDate > endDate ? startDate : endDate;
-console.log(normalizeEndDate)
   return ({
     contractTermsUI: state.contractTermsUI,
     startDate: selector(state, 'contractStartDate'),
@@ -50,13 +49,13 @@ class ContractTerms extends React.Component {
       <div className="form-group row">
         <label forhtml="contractStartDate" className="col-sm-2 col-form-label">Contract Start Date</label>
         <div className="col-md-5 col-sm-10">
-          <Field name="contractStartDate" component={DatePickerReduxForm} type="text" />
+          <Field name="contractStartDate" component={DatePickerReduxForm} type="text" value2={this.props.startDate} />
         </div>
       </div>
       <div className="form-group row">
         <label forhtml="contractEndDate" className="col-sm-2 col-form-label">Contract End Date</label>
         <div className="col-md-5 col-sm-10">
-          <Field name="contractEndDate" component={DatePickerReduxForm} type="text" value={this.props.endDate} />
+          <Field name="contractEndDate" component={DatePickerReduxForm} type="text" value2={this.props.endDate} startDate={this.props.startDate} />
         </div>
       </div>
       <div className="form-group row">
@@ -74,8 +73,7 @@ class ContractTerms extends React.Component {
     </form>
   );
   render() {
-    console.log(this.props)
-    const { showResults, showPharmacies, contractTermsUI } = this.props;
+    const { showResults, showPharmacy, contractTermsUI } = this.props;
     if (contractTermsUI.isShow === false) {
       return null;
     }
@@ -83,7 +81,7 @@ class ContractTerms extends React.Component {
       <div>
         <h2>3: Enter Contract Terms</h2>
         {this.renderForm()}
-        <button onClick={showPharmacies} className='btn btn-primary'>Back</button>
+        <button onClick={showPharmacy} className='btn btn-primary'>Back</button>
         <button onClick={showResults} className='btn btn-primary'>View Results</button>
       </div>
     );
@@ -91,5 +89,4 @@ class ContractTerms extends React.Component {
 }
 const FormDecoratedComponent = reduxForm({ form: 'contractTerms' })(ContractTerms);
 export default connect(mapStateToProps, actionCreators)(FormDecoratedComponent);
-//const connected = connect(mapStateToProps, actionCreators)(ContractTerms);
-//export default reduxForm({ form: 'contractTerms' })(connected);
+

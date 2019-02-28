@@ -55,7 +55,7 @@ const contractTermsUI = handleActions({
   [actions.showPharmacy](state) {
     return { ...state, isShow: false };
   },
-}, { isShow: true });
+}, { isShow: false });
 
 export default combineReducers({
   legalEntity,
