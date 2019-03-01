@@ -27,9 +27,6 @@ const actionCreators = {
 class Pharmacy extends React.Component {
   selectRow = selectedId => (e) => {
     const { unSelectPharmacy, selectPharmacy, pharmaciesUI } = this.props;
-    console.log(selectedId)
-    console.log(pharmaciesUI.selectedIds)
-    console.log(pharmaciesUI.selectedIds.includes(selectedId))
     if (pharmaciesUI.selectedIds.includes(selectedId)) {
       unSelectPharmacy({ selectedId }); 
     } else {
@@ -50,7 +47,7 @@ class Pharmacy extends React.Component {
     }
     return (
       <div>
-        <h2>1: Select Pharmacies</h2>
+        <h2>2: Select Pharmacies</h2>
         <Table {...tableProps} />
         <button onClick={showLegalEntity} className='btn btn-primary'>Back</button>
         <button onClick={showContractTerms} className='btn btn-primary'>Enter Contract Terms</button>

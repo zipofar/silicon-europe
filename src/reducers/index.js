@@ -18,7 +18,6 @@ const pharmacies = handleActions({
 
 const contractTerms = handleActions({
   [actions.addContractTerms](state, { payload: { contractTerms } }) {
-    console.log('REDUCER', contractTerms)
     return contractTerms;
   }
 }, {});
@@ -60,6 +59,9 @@ const contractTermsUI = handleActions({
   },
   [actions.showPharmacy](state) {
     return { ...state, isShow: false };
+  },
+  [actions.showResults](state) {
+    return { ...state, isShow: false }
   },
 }, { isShow: false });
 

@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import { Field, reduxForm, formValueSelector, submit } from 'redux-form';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 import DatePickerReduxForm from './DatePicker/DatePickerReduxForm';
 
 const contractType = ['Charter', 'Order', 'Proxy', 'Certificate'];
@@ -15,16 +15,6 @@ const formDefinition = [
   ['location', 'Location'],
   ['contractorName', 'Contractor Name'],
 ];
-
-const handleSubmit = (values) => {
-  console.log('Submit', values)
-  connect()(
-    ({ dispatch }) => {
-      console.log(dispatch)
-      dispatch({action: 'CONTRACT-TERMS_ADD', payload: {contractTerms: values}});
-    }
-  );
-}
 
 const mapStateToProps = (state) => {
   const selector = formValueSelector('contractTerms');
@@ -50,10 +40,20 @@ const actionCreators = {
   showPharmacy: actions.showPharmacy,
   showResults: actions.showResults,
   addContractTerms: actions.addContractTerms,
-  sumbit: submit,
 };
 
 class ContractTerms extends React.Component {
+  handleS = (values) => {
+    const { showResults, addContractTerms } = this.props;
+    const contractTerms = formDefinition.reduce((acc, [id, name]) => {
+      const value = _.isDate(values[id]) ? values[id].toISOString().split('T')[0] : values[id];
+      return { ...acc, [id]: { value, name } };
+    }, {});
+
+    addContractTerms({ contractTerms });
+    showResults();
+  }
+  
   renderForm = () => (
     <form>
       <div className="form-group row">
@@ -97,7 +97,7 @@ class ContractTerms extends React.Component {
     </form>
   );
   render() {
-    const { showResults, showPharmacy, contractTermsUI, submit } = this.props;
+    const { showResults, showPharmacy, contractTermsUI, submit, handleSubmit } = this.props;
     if (contractTermsUI.isShow === false) {
       return null;
     }
@@ -106,11 +106,11 @@ class ContractTerms extends React.Component {
         <h2>3: Enter Contract Terms</h2>
         {this.renderForm()}
         <button onClick={showPharmacy} className='btn btn-primary'>Back</button>
-        <button onClick={() => submit('contractTerms')} className='btn btn-primary'>View Results</button>
+        <button onClick={handleSubmit(this.handleS)} className='btn btn-primary'>View Results</button>
       </div>
     );
   }
 }
-const FormDecoratedComponent = reduxForm({ form: 'contractTerms', onSubmit: handleSubmit })(ContractTerms);
+const FormDecoratedComponent = reduxForm({ form: 'contractTerms' })(ContractTerms);
 export default connect(mapStateToProps, actionCreators)(FormDecoratedComponent);
 

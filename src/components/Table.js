@@ -31,7 +31,6 @@ export default class Table extends React.Component {
 
   render() {
     const { tableHeaders } = this.props;
-    console.log(tableHeaders)
     return (
       <table className="table table-striped">
         <thead>
