@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![Build Status](https://travis-ci.org/zipofar/silicon-europe.svg?branch=master)](https://travis-ci.org/zipofar/silicon-europe)
 
 # Тестовое задание для компании Силикон Еуроп
 
@@ -11,6 +11,7 @@ legalentity.json
 
 Пользователь может выбрать одну из записей, как показано на рисунке step1-1
 Если не выбрано ни одной записи, пользователь не может перейти на следующий шаг.
+![step1-1](https://github.com/zipofar/silicon-europe/raw/master/resources/step1-1.png)
 
 ### Шаг 2:
 Таблица с записями (рисунок step2). Данные для таблицы должны загружаться из файла
@@ -18,6 +19,7 @@ pharmacy.json при этом записи должны фильтроватьс
 которых ключ legalEntityID соответствует ключу, выбранному на первом шаге.
 Пользователь может выбрать несколько записей, как показано на рисунке step2-2
 Если не выбрано ни одной записи, пользователь не может перейти на следующий шаг.
+![step2-2](https://github.com/zipofar/silicon-europe/raw/master/resources/step2-2.png)
 
 ### Шаг 3:
 Форма для ввода данных (рисунок step3)
@@ -28,11 +30,15 @@ pharmacy.json при этом записи должны фильтроватьс
 Date. При выборе даты Contract Start Date дата в Contract End Date должна обновляться, если
 она была меньше чем значение в Contract Start Date, при этом недопустимые даты в
 календаре должны становиться неактивными (step3-3).
+![step3-1](https://github.com/zipofar/silicon-europe/raw/master/resources/step3-1.png)
+
 ### Шаг 4:
 На последнем шаге должны выводиться данные, которые были выбраны/введены на
 предыдущих шагах. Формат вывода данных - свободный.
 На каждом из шагов должна быть возможность вернуться к предыдущему шагу и изменить
 введенные ранее данные.
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
