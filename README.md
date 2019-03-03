@@ -57,6 +57,6 @@ You will also see any lint errors in the console.
 Runs the express server for fetch data from API.<br>
 Server start on [http://localhost:9000](http://localhost:9000). 
 
-Get Legal Entities by route [http://localhost:9000/legal_entities](http://localhost:9000/legal_entities)
+Get Legal Entities by route [http://localhost:9000/legal_entities](http://localhost:9000/legal_entities)<br>
 Get Pharmacies by route [http://localhost:9000//legal_entities/:id/pharmacies](http://localhost:9000/legal_entities/:id/pharmacies)
 
