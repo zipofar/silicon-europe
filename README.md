@@ -1,7 +1,8 @@
 [![Build Status](https://travis-ci.org/zipofar/silicon-europe.svg?branch=master)](https://travis-ci.org/zipofar/silicon-europe)
 
 [Demo](https://morning-atoll-29670.herokuapp.com/)
-**Так как проект находится на Heroku, могут быть задержки при открытии
+
+#### Так как проект находится на Heroku, могут быть задержки при открытии
 
 # Тестовое задание для компании Силикон Еуроп
 
