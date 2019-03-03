@@ -3,6 +3,8 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import Table from './Table';
+import LoadSpinner from './utils/LoadSpinner';
+import Alert from './utils/Alert';
 
 const tableHeaders = ['Pharmacy', 'Street', 'City', 'Country'];
 
@@ -44,6 +46,12 @@ class Pharmacy extends React.Component {
     };
     if (pharmaciesUI.isShow === false) {
       return null;
+    }
+    if (pharmaciesUI.load === 'request') {
+      return <LoadSpinner />;
+    }
+    if (pharmaciesUI.load === 'failure') {
+      return <Alert>Error loading</Alert>;
     }
     return (
       <div>

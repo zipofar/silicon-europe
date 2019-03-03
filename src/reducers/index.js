@@ -31,7 +31,16 @@ const legalEntityUI = handleActions({
   [actions.showLegalEntity](state) {
     return { ...state, isShow: true };
   },
-}, { isShow: true });
+  [actions.fetchLegalEntityRequest](state) {
+    return { ...state, load: 'request' };
+  },
+  [actions.fetchLegalEntitySuccess](state) {
+    return { ...state, load: 'success' };
+  },
+  [actions.fetchLegalEntityFailure](state) {
+    return { ...state, load: 'failure' };
+  },
+}, { isShow: true, load: '' });
 
 const pharmaciesUI = handleActions({
   [actions.selectPharmacy](state, { payload: { selectedId } }) {
@@ -51,7 +60,16 @@ const pharmaciesUI = handleActions({
   [actions.showLegalEntity](state) {
     return { ...state, isShow: false };
   },
-}, { isShow: false, selectedIds: [] });
+  [actions.fetchPharmacyRequest](state) {
+    return { ...state, load: 'request' };
+  },
+  [actions.fetchPharmacySuccess](state) {
+    return { ...state, load: 'success' };
+  },
+  [actions.fetchPharmacyFailure](state) {
+    return { ...state, load: 'failure' };
+  },
+}, { isShow: false, load: '', selectedIds: [] });
 
 const contractTermsUI = handleActions({
   [actions.showContractTerms](state) {

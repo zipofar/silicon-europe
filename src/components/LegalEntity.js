@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import Table from './Table';
+import LoadSpinner from './utils/LoadSpinner';
+import Alert from './utils/Alert';
 
 const tableHeaders = ['Legal Entity', 'Street', 'City', 'Country'];
 
@@ -43,6 +45,12 @@ class LegalEntity extends React.Component {
     };
     if (legalEntityUI.isShow === false) {
       return null;
+    }
+    if (legalEntityUI.load === 'request') {
+      return <LoadSpinner />;
+    }
+    if (legalEntityUI.load === 'failure') {
+      return <Alert>Error loading</Alert>;
     }
     return (
       <div>
