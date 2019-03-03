@@ -4,12 +4,14 @@ const fs = require('fs');
 const app = express();
 const cors = require('cors');
 const port = process.env.PORT || 9000;
-console.log(process.env)
+
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'build')));
 
 app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  const indexPath = path.join(__dirname, 'build', 'index.html');
+  console.log(indexPath)
+  res.sendFile(indexPath);
 });
 
 app.get('/legal_entities', function(req, res) {
