@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const app = express();
 const cors = require('cors');
+const port = process.env.PORT || 9000;
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'build')));
@@ -27,4 +28,4 @@ app.get('/legal_entities/:id/pharmacies', function(req, res) {
   })
 });
 
-app.listen(9000);
+app.listen(port);
