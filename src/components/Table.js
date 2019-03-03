@@ -1,19 +1,16 @@
 import React from 'react';
 import _ from 'lodash';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 
 library.add(faCheck);
 
 export default class Table extends React.Component {
-  renderRow = (cols) => {
-    return Object.values(cols).map(e => (
-      <td key={_.uniqueId()}>{e}</td>
-    ));
-  }
-  
+  renderRow = cols => (
+    Object.values(cols).map(e => (<td key={_.uniqueId()}>{e}</td>)));
+
   renderItems() {
     const { items, selectItem, selectedIds } = this.props;
     const isSelected = id => (selectedIds.includes(id));
@@ -35,7 +32,7 @@ export default class Table extends React.Component {
       <table className="table table-striped">
         <thead>
           <tr>
-            <th><div style={ { opacity: '0' } }><FontAwesomeIcon icon="check" /></div></th>
+            <th><div style={{ opacity: '0' }}><FontAwesomeIcon icon="check" /></div></th>
             {tableHeaders.map(e => (<th key={_.uniqueId()} scope="col">{e}</th>))}
           </tr>
         </thead>
@@ -46,4 +43,3 @@ export default class Table extends React.Component {
     );
   }
 }
-

@@ -1,12 +1,12 @@
 import React from 'react';
 
 export default class Intput extends React.Component {
-  handlePressKey(e) {
+  handlePressKey = (e) => {
     e.preventDefault();
   }
 
   render() {
-    const { onChange, onClick, value } = this.props;
+    const { onClick, value } = this.props;
     return (
       <input
         onChange={() => {}}

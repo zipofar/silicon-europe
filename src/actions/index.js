@@ -10,8 +10,7 @@ export const fetchLegalEntity = () => async (dispatch) => {
   dispatch(fetchLegalEntityRequest());
   try {
     const res = await axios.get('http://localhost:9000/legal_entities');
-    console.log('action fetchLegalEntity', res.data)
-    dispatch(fetchLegalEntitySuccess({ legalEntity: res.data }));
+    dispatch(fetchLegalEntitySuccess({ data: res.data }));
   } catch (e) {
     dispatch(fetchLegalEntityFailure());
   }
@@ -27,8 +26,7 @@ export const fetchPharmacy = id => async (dispatch) => {
   dispatch(fetchPharmacyRequest());
   try {
     const res = await axios.get(`http://localhost:9000/legal_entities/${id}/pharmacies`);
-    console.log('action fetchPharmacy', res.data)
-    dispatch(fetchPharmacySuccess({ pharmacies: res.data }));
+    dispatch(fetchPharmacySuccess({ data: res.data }));
   } catch (e) {
     dispatch(fetchPharmacyFailure());
   }

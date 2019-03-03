@@ -1,26 +1,27 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
 import { reducer as formReducer } from 'redux-form';
-import * as actions from '../actions';
 import _ from 'lodash';
+import * as actions from '../actions';
 
 const legalEntity = handleActions({
-  [actions.fetchLegalEntitySuccess](state, { payload: { legalEntity } }) {
-    return _.keyBy(legalEntity, 'legalEntityID'); 
+  [actions.fetchLegalEntitySuccess](state, { payload: { data } }) {
+    return _.keyBy(data, 'legalEntityID');
   },
 }, {});
 
 const pharmacies = handleActions({
-  [actions.fetchPharmacySuccess](state, { payload: { pharmacies } }) {
-    return _.keyBy(pharmacies, 'pharmaID'); 
+  [actions.fetchPharmacySuccess](state, { payload: { data } }) {
+    return _.keyBy(data, 'pharmaID');
   },
 }, {});
 
 const contractTerms = handleActions({
-  [actions.addContractTerms](state, { payload: { contractTerms } }) {
-    return contractTerms;
-  }
+  [actions.addContractTerms](state, { payload: { data } }) {
+    return data;
+  },
 }, {});
+
 const legalEntityUI = handleActions({
   [actions.selectLegalEntity](state, { payload: { selectedId } }) {
     return { ...state, selectedId };
@@ -79,13 +80,13 @@ const contractTermsUI = handleActions({
     return { ...state, isShow: false };
   },
   [actions.showResults](state) {
-    return { ...state, isShow: false }
+    return { ...state, isShow: false };
   },
 }, { isShow: false });
 
 const resultsUI = handleActions({
   [actions.showResults](state) {
-    return { ...state, isShow: true }
+    return { ...state, isShow: true };
   },
   [actions.showContractTerms](state) {
     return { ...state, isShow: false };

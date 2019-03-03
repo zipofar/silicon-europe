@@ -1,7 +1,9 @@
 import React from 'react';
 
-export default (props) => (
+const Alert = ({ children }) => (
   <div className="alert alert-danger" role="alert">
-    {props.children}
+    {children}
   </div>
 );
+
+export default Alert;

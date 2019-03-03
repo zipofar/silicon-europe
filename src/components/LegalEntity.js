@@ -7,7 +7,7 @@ import Alert from './utils/Alert';
 
 const tableHeaders = ['Legal Entity', 'Street', 'City', 'Country'];
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   legalEntity: Object.values(state.legalEntity).map(e => ({
     id: e.legalEntityID,
     name: e.legalEntityName,
@@ -25,8 +25,9 @@ const actionCreators = {
 };
 
 class LegalEntity extends React.Component {
-  selectEntity = selectedId => (e) => {
-    this.props.selectLegalEntity({ selectedId });
+  selectEntity = selectedId => () => {
+    const { selectLegalEntity } = this.props;
+    selectLegalEntity({ selectedId });
   }
 
   loadPharmacies = () => {
@@ -36,7 +37,7 @@ class LegalEntity extends React.Component {
   }
 
   render() {
-    const { legalEntity, showPharmacy, legalEntityUI } = this.props;
+    const { legalEntity, legalEntityUI } = this.props;
     const tableProps = {
       selectedIds: [legalEntityUI.selectedId],
       selectItem: this.selectEntity,
@@ -58,8 +59,9 @@ class LegalEntity extends React.Component {
         <Table {...tableProps} />
         <button
           onClick={this.loadPharmacies}
-          className='btn btn-primary float-right'
+          className="btn btn-primary float-right"
           disabled={!legalEntityUI.selectedId}
+          type="button"
         >
           Select Pharmacies
         </button>
