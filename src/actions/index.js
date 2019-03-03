@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createAction } from 'redux-actions';
+import { routeLegalEntity, routePharmacy } from '../reducers/routes';
 
 export const showLegalEntity = createAction('LEGALENTITY_SHOW');
 export const fetchLegalEntitySuccess = createAction('LEGALENTITY_FETCH_SUCCESS');
@@ -9,7 +10,7 @@ export const selectLegalEntity = createAction('LEGALENTITY_SELECT');
 export const fetchLegalEntity = () => async (dispatch) => {
   dispatch(fetchLegalEntityRequest());
   try {
-    const res = await axios.get('http://localhost:9000/legal_entities');
+    const res = await axios.get(routeLegalEntity());
     dispatch(fetchLegalEntitySuccess({ data: res.data }));
   } catch (e) {
     dispatch(fetchLegalEntityFailure());
@@ -25,7 +26,7 @@ export const unSelectPharmacy = createAction('PHARMACY_UNSELECT');
 export const fetchPharmacy = id => async (dispatch) => {
   dispatch(fetchPharmacyRequest());
   try {
-    const res = await axios.get(`http://localhost:9000/legal_entities/${id}/pharmacies`);
+    const res = await axios.get(routePharmacy(id));
     dispatch(fetchPharmacySuccess({ data: res.data }));
   } catch (e) {
     dispatch(fetchPharmacyFailure());
