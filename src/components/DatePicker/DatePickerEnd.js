@@ -5,7 +5,7 @@ import Input from './Input';
 
 export default class DatePickerReduxForm extends React.Component {
   componentWillUpdate(nextProps, nextState) {
-    if (this.props.input.name === 'contractEndDate' && this.props.value2 !== nextProps.value2) {
+    if (this.props.value2 !== nextProps.value2) {
       this.handleChange(nextProps.value2);
     }
   }
@@ -15,16 +15,12 @@ export default class DatePickerReduxForm extends React.Component {
     onChange(date);
   }
 
-  isOlderDate = (date) => {
+  isOlderDate = (endDate) => {
     const { startDate, input: { name } } = this.props;
-    if (date <= startDate && name === 'contractEndDate') {
-      return false;
-    }
-    return true;
+    return endDate >= startDate;
   }
 
   render() {
-    console.log(this.props)
     const { value2, input: { name } } = this.props;
     return (
       <DatePicker

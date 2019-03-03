@@ -3,7 +3,8 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
-import DatePickerReduxForm from './DatePicker/DatePickerReduxForm';
+import DatePickerEnd from './DatePicker/DatePickerEnd';
+import DatePickerStart from './DatePicker/DatePickerStart';
 
 const contractType = ['Charter', 'Order', 'Proxy', 'Certificate'];
 
@@ -73,13 +74,13 @@ class ContractTerms extends React.Component {
       <div className="form-group row">
         <label forhtml="contractStartDate" className="col-sm-2 col-form-label">Contract Start Date</label>
         <div className="col-md-5 col-sm-10">
-          <Field name="contractStartDate" component={DatePickerReduxForm} type="text" value2={this.props.startDate} />
+          <Field name="contractStartDate" component={DatePickerStart} type="text" />
         </div>
       </div>
       <div className="form-group row">
         <label forhtml="contractEndDate" className="col-sm-2 col-form-label">Contract End Date</label>
         <div className="col-md-5 col-sm-10">
-          <Field name="contractEndDate" component={DatePickerReduxForm} type="text" value2={this.props.endDate} startDate={this.props.startDate} />
+          <Field name="contractEndDate" component={DatePickerEnd} type="text" value2={this.props.endDate} startDate={this.props.startDate} />
         </div>
       </div>
       <div className="form-group row">
@@ -105,8 +106,8 @@ class ContractTerms extends React.Component {
       <div>
         <h2>3: Enter Contract Terms</h2>
         {this.renderForm()}
-        <button onClick={showPharmacy} className='btn btn-primary'>Back</button>
-        <button onClick={handleSubmit(this.handleS)} className='btn btn-primary'>View Results</button>
+        <button onClick={showPharmacy} className='btn btn-secondary float-left'>Back</button>
+        <button onClick={handleSubmit(this.handleS)} className='btn btn-primary float-right'>View Results</button>
       </div>
     );
   }

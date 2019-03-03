@@ -1,0 +1,11 @@
+
+$primary: #821b5b;
+
+@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/variables";
+@import 'navbar-left.scss';
+@import 'menu-top.scss';
+
+.content {
+  padding: 1.5rem 0 0 1.5rem;
+}

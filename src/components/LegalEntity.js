@@ -48,7 +48,7 @@ class LegalEntity extends React.Component {
       <div>
         <h2>1: Select Legal Entity</h2>
         <Table {...tableProps} />
-        <button onClick={this.loadPharmacies} className='btn btn-primary'>Select Pharmacies</button>
+        <button onClick={this.loadPharmacies} className='btn btn-primary float-right'>Select Pharmacies</button>
       </div>
     );
   }

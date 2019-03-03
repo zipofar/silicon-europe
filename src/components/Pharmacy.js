@@ -49,8 +49,8 @@ class Pharmacy extends React.Component {
       <div>
         <h2>2: Select Pharmacies</h2>
         <Table {...tableProps} />
-        <button onClick={showLegalEntity} className='btn btn-primary'>Back</button>
-        <button onClick={showContractTerms} className='btn btn-primary'>Enter Contract Terms</button>
+        <button onClick={showLegalEntity} className='btn btn-secondary float-left'>Back</button>
+        <button onClick={showContractTerms} className='btn btn-primary float-right'>Enter Contract Terms</button>
       </div>
     );
   }
