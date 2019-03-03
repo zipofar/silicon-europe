@@ -70,7 +70,7 @@ class Results extends Component {
             ))}
           </thead>
         </table>
-        <button onClick={showContractTerms} className='btn btn-primary'>Back</button>
+        <button onClick={showContractTerms} className='btn btn-secondary'>Back</button>
       </div>
     );
   }

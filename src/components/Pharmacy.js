@@ -50,7 +50,13 @@ class Pharmacy extends React.Component {
         <h2>2: Select Pharmacies</h2>
         <Table {...tableProps} />
         <button onClick={showLegalEntity} className='btn btn-secondary float-left'>Back</button>
-        <button onClick={showContractTerms} className='btn btn-primary float-right'>Enter Contract Terms</button>
+        <button
+          onClick={showContractTerms}
+          className='btn btn-primary float-right'
+          disabled={pharmaciesUI.selectedIds.length === 0}
+        >
+          Enter Contract Terms
+        </button>
       </div>
     );
   }
